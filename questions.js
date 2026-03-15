@@ -283,7 +283,7 @@ const QUESTIONS_BANK = [
 
   { id:226, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi murrizketaz:\n{ 2x + 3y = 7\n{ 3x - 2y = 4", solucion:"x=2, y=1" },
   { id:227, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi murrizketaz:\n{ 2x + 5y = 16\n{ 3x - 2y = 5", solucion:"x=3, y=2" },
-  { id:228, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi murrizketaz:\n{ 4x + 3y = 17\n{ 4x - 3y = 7", solucion:"x=3, y=1" },
+  { id:228, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi murrizketaz:\n{ 4x + 3y = 17\n{ 4x - 3y = 7", solucion:"x=3, y=5/3" },
   { id:229, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi:\n{ x - 2y = 1\n{ 3x + 4y = 13", solucion:"x=3, y=1" },
   { id:230, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi:\n{ x + y = 5\n{ 2x + 3y = 13", solucion:"x=2, y=3" },
   { id:231, tema:"Sistemak", dificultad:"zaila", enunciado:"Ebatzi murrizketaz:\n{ 3x + y = 14\n{ 2x - 3y = 2", solucion:"x=4, y=2" },

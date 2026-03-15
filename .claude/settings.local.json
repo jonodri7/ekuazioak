@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node audit.js)",
+      "Bash(node -e \":*)"
+    ]
+  }
+}
