@@ -83,32 +83,34 @@ function parsearNumero(str) {
 }
 
 /**
- * Convierte una expresión matemática a JavaScript evaluable,
- * sustituyendo x por xVal.
- * Maneja: x², x^2, 2(…), )(, x(…, 3x, corchetes.
+ * Convierte una expresión matemática en JS evaluable.
+ * x se pasa como parámetro en calcularLado, no se sustituye aquí.
+ * Maneja: (...)², (...)³, x^2, 2(…), )(, )x, 3x, corchetes.
  */
-function prepararExpr(expr, xVal) {
+function prepararExpr(expr) {
   return expr
     .trim()
-    .replace(/x²/g, 'x**2').replace(/x³/g, 'x**3')
+    .replace(/²/g, '**2')              // (x-1)² → (x-1)**2  (cualquier posición)
+    .replace(/³/g, '**3')
     .replace(/\^/g, '**')
     .replace(/(\d)\s*\(/g, '$1*(')     // 2( → 2*(
-    .replace(/\)\s*\(/g, ')*(')         // )( → )*(
+    .replace(/\)\s*\(/g, ')*(')        // )( → )*(
     .replace(/x\s*\(/g, 'x*(')         // x( → x*(
+    .replace(/\)\s*x/gi, ')*x')        // )x → )*x
     .replace(/(\d)\s*x/gi, '$1*x')     // 3x → 3*x
-    .replace(/\[/g, '(').replace(/\]/g, ')')
-    .replace(/\bx\b/gi, `(${xVal})`);  // x → (valor numérico)
+    .replace(/\[/g, '(').replace(/\]/g, ')');
 }
 
 /**
  * Evalúa un lado de la ecuación con x=xVal.
+ * Usa Function('x', ...) para pasar x como argumento real, no como string.
  * Devuelve el número resultante, o null si no se puede evaluar.
  */
 function calcularLado(expr, xVal) {
   try {
-    const js = prepararExpr(expr, xVal);
+    const js = prepararExpr(expr);
     // eslint-disable-next-line no-new-func
-    const r = new Function(`return (${js})`)();
+    const r = new Function('x', `return (${js})`)(xVal);
     return (typeof r === 'number' && isFinite(r)) ? r : null;
   } catch {
     return null;
@@ -303,9 +305,9 @@ function evaluarLocal(respuestaAlumno, respuestaCorrecta, respuestasEquivalentes
     }
   }
 
-  // Comparación numérica
-  const numA = parseFloat(rA.replace(/^[xy]=/, '').replace(/^x[12]=/, ''));
-  const numC = parseFloat(rC.replace(/^[xy]=/, '').replace(/^x[12]=/, ''));
+  // Comparación numérica — usa parsearNumero para manejar fracciones (e.g. 1/2)
+  const numA = parsearNumero(rA.replace(/^[xy]=/, '').replace(/^x[12]=/, ''));
+  const numC = parsearNumero(rC.replace(/^[xy]=/, '').replace(/^x[12]=/, ''));
   if (!isNaN(numA) && !isNaN(numC)) {
     if (Math.abs(numA - numC) < 0.0001) return true;
     // Si al menos uno tiene decimal → definitivamente diferente

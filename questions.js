@@ -239,8 +239,8 @@ const QUESTIONS_BANK = [
   { id:195, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: x²/6 - x/2 + 1/3 = 0", solucion:"x₁=2, x₂=1" },
   { id:196, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: x²/4 - 5x/4 + 1 = 0", solucion:"x₁=4, x₂=1" },
   { id:197, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: x²/6 + x/3 - 1/2 = 0", solucion:"x₁=1, x₂=-3" },
-  { id:198, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: 3x²/2 + x/4 - 1 = 0", solucion:"x₁=1/2, x₂=-2/3" },
-  { id:199, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: x²/4 + x/4 - 3/4 = 0", solucion:"x₁=1, x₂=-3" },
+  { id:198, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: 3x²/2 + x/4 - 1/2 = 0", solucion:"x₁=1/2, x₂=-2/3" },
+  { id:199, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: x²/4 + x/2 - 3/4 = 0", solucion:"x₁=1, x₂=-3" },
   { id:200, tema:"Bigarren mailako ekuazioak", dificultad:"zaila", enunciado:"Ebatzi: x² + 4x + 6 = 0", solucion:"soluzioa ez dago (diskriminantea < 0)" },
 
   // — BLOKE 4 GORDETAKO PUNTUA (200 galdera) —
