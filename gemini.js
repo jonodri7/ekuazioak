@@ -1,19 +1,9 @@
 // ===== GROQ API =====
-const GROQ_URL   = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_API_KEY = "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";
+const GROQ_URL     = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL   = 'llama-3.3-70b-versatile';
 
 async function callGroq(prompt) {
-  // Leer la key en cada llamada para evitar problemas de orden de carga
-  const apiKey = window.GROQ_API_KEY;
-
-  console.log('[Groq] key (10 chars):', apiKey ? apiKey.substring(0, 10) + '…' : 'UNDEFINED ⚠️');
-  console.log('[Groq] url:', GROQ_URL);
-  console.log('[Groq] model:', GROQ_MODEL);
-
-  if (!apiKey) {
-    throw new Error('GROQ_API_KEY no definida — comprueba que config.js está cargado antes que gemini.js');
-  }
-
   const response = await fetch(GROQ_URL, {
     method: 'POST',
     headers: {
@@ -30,13 +20,12 @@ async function callGroq(prompt) {
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    const msg = err.error?.message || `HTTP ${response.status} ${response.statusText}`;
-    console.error('[Groq] Error de API:', msg, err);
-    throw new Error(msg);
+    console.error('[Groq] Error de API:', response.status, err.error?.message || err);
+    throw new Error('groq_error');
   }
   const data = await response.json();
   const text = data.choices?.[0]?.message?.content;
-  if (!text) throw new Error('Respuesta vacía de Groq');
+  if (!text) throw new Error('groq_error');
   return text.trim();
 }
 

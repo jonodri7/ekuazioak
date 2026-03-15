@@ -421,13 +421,11 @@ async function mostrarExplicacion() {
     console.log('[Explicacion] Respuesta recibida:', explicacion.substring(0, 80));
   } catch (err) {
     console.error('[Explicacion] Error:', err);
-    // Mostrar el error real en pantalla en lugar de un toast genérico
-    const errMsg = err.message || 'Error desconocido';
-    renderizarExplicacion(`ERROR: ${errMsg}\nSOLUCIÓN:\n1. Abre F12 → Consola para ver el detalle\nCONCLUSIÓN: Fallo al contactar con Groq`);
-    $('explanation-panel').style.display = 'block';
-    estado.explicacionVisible = true;
-    $('btn-explicacion').textContent = t('btn-explain-hide');
     $('btn-explicacion').disabled = false;
+    $('btn-explicacion').textContent = t('btn-explain-show');
+    mostrarToast(idiomaActual === 'eu'
+      ? 'Momentuz ezin da azalpena kargatu. Saiatu berriro.'
+      : 'No se puede cargar la explicación ahora. Inténtalo de nuevo.');
     return;
   }
 
