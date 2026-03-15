@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MateGalderak – Matemáticas 3º ESO</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== PANTALLA DE BIENVENIDA ===== -->
+<div id="welcome-screen">
+  <div class="welcome-card">
+
+    <!-- Selector de idioma en bienvenida -->
+    <div class="welcome-lang">
+      <button class="btn-lang" onclick="toggleIdioma()">🌐 Euskera</button>
+    </div>
+
+    <div class="welcome-icon">📐</div>
+    <h1>MateGalderak</h1>
+    <p class="subtitle" data-i18n-html="welcome-subtitle"></p>
+
+    <!-- Sección alumno que vuelve (oculta si no hay progreso guardado) -->
+    <div id="returning-section" style="display:none">
+      <p class="returning-hi" data-i18n="welcome-returning-hi"></p>
+      <p class="returning-name" id="returning-name"></p>
+      <button class="btn-start" id="btn-continuar" data-i18n="welcome-btn-continue"></button>
+      <button class="btn-new-student" id="btn-nuevo-alumno" data-i18n="welcome-btn-new"></button>
+    </div>
+
+    <!-- Formulario nuevo alumno -->
+    <div id="new-student-section">
+      <label for="input-nombre" data-i18n="welcome-label-nombre"></label>
+      <input type="text" id="input-nombre" data-i18n-ph="welcome-ph-nombre" maxlength="30" autocomplete="off">
+      <button class="btn-start" id="btn-comenzar" data-i18n="welcome-btn-start"></button>
+    </div>
+
+    <p class="welcome-footer" data-i18n="welcome-footer"></p>
+  </div>
+</div>
+
+<!-- ===== PANTALLA PRINCIPAL ===== -->
+<div id="app-screen" style="display:none">
+
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="header-left">
+      <div class="avatar" id="avatar">A</div>
+      <div class="header-student">
+        <div class="student-name" id="student-name">Alumno</div>
+        <button class="btn-reset" id="btn-reset" data-i18n="btn-reset"></button>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="streak-badge" id="streak-badge" style="display:none">🔥 0</div>
+      <button class="btn-lang" onclick="toggleIdioma()">🌐 Euskera</button>
+    </div>
+  </div>
+
+  <!-- ESTADÍSTICAS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value" id="stat-total">0</div>
+      <div class="stat-label" data-i18n="stat-preguntas"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="stat-correctas" style="color:#10b981">0</div>
+      <div class="stat-label" data-i18n="stat-correctas"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="stat-pct">0%</div>
+      <div class="stat-label" data-i18n="stat-precision"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="stat-racha">0</div>
+      <div class="stat-label" data-i18n="stat-racha"></div>
+    </div>
+  </div>
+
+  <!-- BARRA DE PROGRESO -->
+  <div class="progress-section">
+    <div class="progress-label">
+      <span data-i18n="progress-label"></span>
+      <span id="progress-label-pct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN DE TEMAS -->
+  <div class="topic-section">
+    <h3 class="topic-section-title" data-i18n="topics-title"></h3>
+    <div class="topic-nav" id="topic-nav">
+      <!-- Generado por JS -->
+    </div>
+  </div>
+
+  <!-- CARGANDO -->
+  <div class="loading-card" id="loading-card" style="display:none">
+    <div class="spinner"></div>
+    <div class="loading-text" data-i18n="loading-text"></div>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-card" id="error-card" style="display:none">
+    <h3 data-i18n="error-title"></h3>
+    <p id="error-msg"></p>
+    <button class="btn-retry" id="btn-reintentar" data-i18n="btn-retry"></button>
+  </div>
+
+  <!-- PREGUNTA -->
+  <div class="question-card" id="question-card" style="display:none">
+    <div class="question-meta">
+      <span class="meta-badge topic" id="badge-tema"></span>
+      <span class="meta-badge difficulty-facil" id="badge-dificultad"></span>
+      <span class="question-number" id="question-number"></span>
+    </div>
+    <div class="question-text" id="question-text"></div>
+    <div class="answer-area">
+      <input
+        type="text"
+        id="answer-input"
+        class="answer-input"
+        autocomplete="off"
+        spellcheck="false"
+        data-i18n-ph="answer-ph"
+      >
+      <button class="btn-check" id="btn-comprobar" data-i18n="btn-check"></button>
+    </div>
+  </div>
+
+  <!-- FEEDBACK -->
+  <div class="feedback-card" id="feedback-card" style="display:none">
+    <div class="feedback-header">
+      <span class="feedback-icon" id="feedback-icon">🎉</span>
+      <span class="feedback-title" id="feedback-title"></span>
+    </div>
+    <p class="feedback-message" id="feedback-message"></p>
+
+    <button class="btn-explain" id="btn-explicacion" style="display:none"></button>
+
+    <div class="explanation-panel" id="explanation-panel" style="display:none">
+      <h4 data-i18n="explanation-title"></h4>
+      <div class="explanation-content" id="explanation-content"></div>
+    </div>
+  </div>
+
+  <!-- SIGUIENTE -->
+  <button class="btn-next" id="btn-siguiente" style="display:none" data-i18n="btn-next"></button>
+
+</div><!-- fin app-screen -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="i18n.js"></script>
+<script src="metodologia.js"></script>
+<script src="questions.js"></script>
+<script src="gemini.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
